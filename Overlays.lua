@@ -169,6 +169,9 @@ LibDraw.Sync(function()
 
 			LibDraw.SetColorRaw(1, 1, 1, Alpha)
 
+			--ObjTTD('target')
+			--ObjTTD('player')
+
 			-- Target Line
 			if fetchKey('NePOverlays', 'TargetLine', false) then
 				ObjTargetCheck('player', 'target')
