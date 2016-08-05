@@ -4,7 +4,7 @@ local LibDraw = LibStub('LibDraw-1.0')
 
 local Round = NeP.Core.Round
 local UnitAttackRange = NeP.Core.UnitAttackRange
-local fetchKey = NeP.Interface.fetchKey
+local F = function(key) return NeP.Interface.fetchKey('NePOverlays', key, false) end
 
 local _mediaDir = 'Interface\\AddOns\\NerdPack-Overlays\\media\\'
 local Alpha = 100
@@ -16,43 +16,45 @@ local config = {
 	profiles = true,
 	title = '|T'..NeP.Interface.Logo..':10:10|t'..' '..NeP.Info.Name,
 	subtitle = 'Overlays Settings',
-	color = NeP.Interface.addonColor,
+	color = addonColor,
 	width = 250,
 	height = 500,
 	config = {
-		{ type = 'header', text = '|cff'..NeP.Interface.addonColor..'Overlays:', size = 25, align = 'Center' },
+		{ type = 'header', text = '|cff'..addonColor..'Overlays:', size = 25, align = 'Center' },
 			{ type = 'text', text = "|cfffd1c15[Warning]|r Requires FireHack", align = "Center" },
 			{ type = 'spacer' },
 			{ type = 'checkbox', text = 'Enable Overlays', key = 'Enabled', default = false },
 			
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..NeP.Interface.addonColor..'Player:', size = 25, align = 'Center' },
+		{ type = 'header', text = '|cff'..addonColor..'Player:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Melee Range', key = 'PlayerMRange', default = false },
 			{ type = 'checkbox', text = 'Caster Range', key = 'PlayerCRange', default = false },
 			{ type = 'checkbox', text = 'Target Line', key = 'TargetLine', default = false },
 			{ type = 'checkbox', text = 'Infront Cone', key = 'PlayerInfrontCone', default = false },
 		
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..NeP.Interface.addonColor..'Target:', size = 25, align = 'Center' },
+		{ type = 'header', text = '|cff'..addonColor..'Target:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Melee Range', key = 'TargetMRange', default = false },
 			{ type = 'checkbox', text = 'Caster Range', key = 'TargetCRange', default = false },
 			{ type = 'checkbox', text = 'Infront Cone', key = 'TargetCone', default = false },
 			{ type = 'checkbox', text = 'Target\s Target Line', key = 'targetsTargetLine', default = false },
 		
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..NeP.Interface.addonColor..'Object:', size = 25, align = 'Center' },
+		{ type = 'header', text = '|cff'..addonColor..'Object:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Enemies TimeToDie', key = 'enemieTTD', default = false },
 			{ type = 'checkbox', text = 'Friendly TimeToDie', key = 'friendlyTTD', default = false },
 			{ type = 'checkbox', text = 'Every Friendly Target', key = 'friendlyTrg', default = false },
 			{ type = 'checkbox', text = 'Every Enemie Target', key = 'enemieTrg', default = false },
 
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..NeP.Interface.addonColor..'Tracking:', size = 25, align = 'Center' },
+		{ type = 'header', text = '|cff'..addonColor..'Tracking:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Friendly Player Units', key = 'objectsFriendlyPlayers', default = false },
 			{ type = 'checkbox', text = 'Enemie Player Units', key = 'objectsEnemiePlayers', default = false },
 			{ type = 'checkbox', text = 'Rare Units', key = 'objectsRares', default = false },
 			{ type = 'checkbox', text = 'WorldBoss Units', key = 'objectsWorldBoss', default = false },
 			{ type = 'checkbox', text = 'Elite Units', key = 'objectsElite', default = false },
+
+			{ type = "checkbox", text = "Draw all object IDs:", key = "debugAllObjsIDs", default = false },
 	}
 }
 
@@ -154,14 +156,14 @@ end
 
 LibDraw.Sync(function()
 	
-	if FireHack and fetchKey('NePOverlays', 'Enabled') then
+	if IsHackEnabled and F('Enabled') then
 
 		LibDraw.SetWidth(2)
 
 		local pX, pY, pZ = ObjectPosition('player')
 		--local cx, cy, cz = GetCameraPosition()
 
-		if UnitGUID('target') ~= nil and ObjectExists('target') then
+		if UnitGUID('target') and ObjectExists('target') then
 			
 			local tX, tY, tZ = ObjectPosition('target')
 			local distance = Round(NeP.Engine.Distance('player', 'target'))
@@ -169,47 +171,44 @@ LibDraw.Sync(function()
 
 			LibDraw.SetColorRaw(1, 1, 1, Alpha)
 
-			--ObjTTD('target')
-			--ObjTTD('player')
-
 			-- Target Line
-			if fetchKey('NePOverlays', 'TargetLine', false) then
+			if F('TargetLine') then
 				ObjTargetCheck('player', 'target')
 			end
 			-- Target's Target Line
-			if fetchKey('NePOverlays', 'targetsTargetLine', false) then
+			if F('targetsTargetLine') then
 				if ObjectExists('targettarget') then
 					ObjTargetCheck('target', 'targettarget')
 				end
 			end
 			-- Target Infront Cone
-			if fetchKey('NePOverlays', 'TargetCone', false) then
+			if F('TargetCone',) then
 				local targetRotation = ObjectFacing('target')
 				LibDraw.Arc(tX, tY, tZ, 10, 180, targetRotation)
 			end
 			-- Player Infront Cone
-			if fetchKey('NePOverlays', 'PlayerInfrontCone', false) then
+			if F('PlayerInfrontCone') then
 				local playerRotation = ObjectFacing('player')
 				infrontCheck('player', 'target')
 				LibDraw.Arc(pX, pY, pZ, 10, 180, playerRotation)
 			end
 			-- Player Melee Range
-			if fetchKey('NePOverlays', 'PlayerMRange', false) then
+			if F('PlayerMRange') then
 				distanceCheck('player', 'target', 'melee')
 				LibDraw.Circle(pX, pY, pZ, UnitAttackRange('player', 'target', 'melee'))
 			end
 			-- Player Caster Range
-			if fetchKey('NePOverlays', 'PlayerCRange', false) then
+			if F('PlayerCRange') then
 				distanceCheck('player', 'target', 'ranged')
 				LibDraw.Circle(pX, pY, pZ, UnitAttackRange('player', 'target', 'ranged'))
 			end
 			-- Target Melee Range
-			if fetchKey('NePOverlays', 'TargetMRange', false) then
+			if F('TargetMRange') then
 				distanceCheck('player', 'target', 'melee')
 				LibDraw.Circle(tX, tY, tZ, UnitAttackRange('player', 'target', 'melee'))
 			end
 			-- Target Caster Range
-			if fetchKey('NePOverlays', 'TargetCRange', false) then
+			if F('TargetCRange') then
 				distanceCheck('player', 'target', 'ranged')
 				LibDraw.Circle(tX, tY, tZ, UnitAttackRange('player', 'target', 'ranged'))
 			end
@@ -218,42 +217,42 @@ LibDraw.Sync(function()
 		-- Enemie Units
 		for i=1,#NeP.OM.unitEnemie do
 			local Obj = NeP.OM.unitEnemie[i]
-			if UnitGUID(Obj.key) ~= nil and ObjectExists(Obj.key) then --Calling ObjectExists in FireHack 2.1.4 with nil can crash the client. Fixed in FireHack 2.2.
+			if UnitGUID(Obj.key) and ObjectExists(Obj.key) then --Calling ObjectExists in FireHack 2.1.4 with nil can crash the client. Fixed in FireHack 2.2.
 				
 				local _class = Obj.class
 				LibDraw.SetColorRaw(1, 1, 1, Alpha)
 
 				-- All Targets
-				if fetchKey('NePOverlays', 'enemieTrg', false) then
+				if F('enemieTrg') then
 					local ObjTarget = UnitTarget(Obj.key)
-					if ObjTarget ~= nil then
+					if ObjTarget then
 						ObjTargetCheck(Obj.key, ObjTarget)
 					end
 				end
 
 				-- TDD
-				if fetchKey('NePOverlays', 'enemieTTD', false) then
+				if F('enemieTTD') then
 					ObjTTD(Obj.key)
 				end
 					
 				-- Elites
 				if _class == Classifications['elite'] then
-					if fetchKey('NePOverlays', 'objectsElite', false) then
+					if F('objectsElite') then
 						textureCheck('mob', Obj.key)
 					end
 				-- WorldBoss
 				elseif _class == Classifications['worldboss'] then
-					if fetchKey('NePOverlays', 'objectsWorldBoss', false) then
+					if F('objectsWorldBoss') then
 						textureCheck('mob', Obj.key)
 					end
 				-- Rares
 				elseif _class == Classifications['rareelite'] then
-					if fetchKey('NePOverlays', 'objectsRares', false) then
+					if F('objectsRares') then
 						textureCheck('mob', Obj.key)
 					end
 				-- Players
 				elseif UnitIsPlayer(Obj.key) then
-					if fetchKey('NePOverlays', 'objectsEnemiePlayers', false) then
+					if F('objectsEnemiePlayers') then
 						local factionGroup, factionName = UnitFactionGroup(Obj.key)
 						if factionGroup == 'Alliance' then
 							textureCheck('ally', Obj.key)
@@ -269,26 +268,26 @@ LibDraw.Sync(function()
 		-- Friendly Units
 		for i=1,#NeP.OM.unitFriend do
 			local Obj = NeP.OM.unitFriend[i]
-			if UnitGUID(Obj.key) ~= nil and ObjectExists(Obj.key) then
+			if UnitGUID(Obj.key) and ObjectExists(Obj.key) then
 
 				LibDraw.SetColorRaw(1, 1, 1, Alpha)
 
 				-- All Targets
-				if fetchKey('NePOverlays', 'friendlyTrg', false) then
+				if F('friendlyTrg') then
 					local ObjTarget = UnitTarget(Obj.key)
-					if ObjTarget ~= nil then
+					if ObjTarget then
 						ObjTargetCheck(Obj.key, ObjTarget)
 					end
 				end
 
 				-- TTD
-				if fetchKey('NePOverlays', 'friendlyTTD', false) then
+				if F('friendlyTTD') then
 					ObjTTD(Obj.key)
 				end
 
 				-- Players
 				if UnitIsPlayer(Obj.key) then
-					if fetchKey('NePOverlays', 'objectsFriendlyPlayers', false) then
+					if F('objectsFriendlyPlayers') then
 						if not UnitIsUnit('player', Obj.key) then
 							local factionGroup, factionName = UnitFactionGroup(Obj.key)
 							if factionGroup == 'Alliance' then
@@ -300,6 +299,22 @@ LibDraw.Sync(function()
 					end
 				end
 
+			end
+		end
+
+		for i=1, #NeP.OM.GameObjects do
+			local Obj = NeP.OM.GameObjects[i]
+			if UnitGUID(Obj.key) and ObjectExists(Obj.key) then
+				
+				local oX, oY, oZ = ObjectPosition(Obj.key)
+				local distance = NeP.Core.Round(Obj.distance)
+				local name = Obj.name
+				local ID = Obj.id
+				
+				-- Debug
+				if F('debugAllObjsIDs') then
+					LibDraw.Text(addonColor..name..'|r ID:'..ID..'\n Distance: '..distance, "SystemFont_Tiny", oX, oY, oZ+1)
+				end
 			end
 		end
 
