@@ -182,7 +182,7 @@ LibDraw.Sync(function()
 				end
 			end
 			-- Target Infront Cone
-			if F('TargetCone',) then
+			if F('TargetCone') then
 				local targetRotation = ObjectFacing('target')
 				LibDraw.Arc(tX, tY, tZ, 10, 180, targetRotation)
 			end
