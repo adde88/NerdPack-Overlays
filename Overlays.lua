@@ -16,38 +16,38 @@ local config = {
 	profiles = true,
 	title = '|T'..NeP.Interface.Logo..':10:10|t'..' '..NeP.Info.Name,
 	subtitle = 'Overlays Settings',
-	color = addonColor,
+	color = NeP.Interface.addonColor,
 	width = 250,
 	height = 500,
 	config = {
-		{ type = 'header', text = '|cff'..addonColor..'Overlays:', size = 25, align = 'Center' },
+		{ type = 'header', text = addonColor..'Overlays:', size = 25, align = 'Center' },
 			{ type = 'text', text = "|cfffd1c15[Warning]|r Requires FireHack", align = "Center" },
 			{ type = 'spacer' },
 			{ type = 'checkbox', text = 'Enable Overlays', key = 'Enabled', default = false },
 			
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..addonColor..'Player:', size = 25, align = 'Center' },
+		{ type = 'header', text = addonColor..'Player:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Melee Range', key = 'PlayerMRange', default = false },
 			{ type = 'checkbox', text = 'Caster Range', key = 'PlayerCRange', default = false },
 			{ type = 'checkbox', text = 'Target Line', key = 'TargetLine', default = false },
 			{ type = 'checkbox', text = 'Infront Cone', key = 'PlayerInfrontCone', default = false },
 		
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..addonColor..'Target:', size = 25, align = 'Center' },
+		{ type = 'header', text = addonColor..'Target:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Melee Range', key = 'TargetMRange', default = false },
 			{ type = 'checkbox', text = 'Caster Range', key = 'TargetCRange', default = false },
 			{ type = 'checkbox', text = 'Infront Cone', key = 'TargetCone', default = false },
 			{ type = 'checkbox', text = 'Target\s Target Line', key = 'targetsTargetLine', default = false },
 		
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..addonColor..'Object:', size = 25, align = 'Center' },
+		{ type = 'header', text = addonColor..'Object:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Enemies TimeToDie', key = 'enemieTTD', default = false },
 			{ type = 'checkbox', text = 'Friendly TimeToDie', key = 'friendlyTTD', default = false },
 			{ type = 'checkbox', text = 'Every Friendly Target', key = 'friendlyTrg', default = false },
 			{ type = 'checkbox', text = 'Every Enemie Target', key = 'enemieTrg', default = false },
 
 		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = '|cff'..addonColor..'Tracking:', size = 25, align = 'Center' },
+		{ type = 'header', text = addonColor..'Tracking:', size = 25, align = 'Center' },
 			{ type = 'checkbox', text = 'Friendly Player Units', key = 'objectsFriendlyPlayers', default = false },
 			{ type = 'checkbox', text = 'Enemie Player Units', key = 'objectsEnemiePlayers', default = false },
 			{ type = 'checkbox', text = 'Rare Units', key = 'objectsRares', default = false },
@@ -320,3 +320,5 @@ LibDraw.Sync(function()
 
 	end
 end)
+
+LibDraw.Enable(0.01)
