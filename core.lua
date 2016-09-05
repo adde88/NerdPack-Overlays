@@ -1,6 +1,16 @@
-NeP.Overlays = {}
+NeP.Overlays = {
+	Version = 2.0
+}
 
-NeP.Interface.CreatePlugin('Overlays', function() NeP.Interface.ShowGUI('NePOverlays') end)
+-- Core version check
+if NeP.Info.Version >= 70.8 then
+	NeP.Core.Print('Loaded  Overlays V:'..NeP.Overlays.Version)
+else
+	NeP.Core.Print('Failed to load Overlays module.\nYour Core is outdated.')
+	return
+end
+
+NeP.Interface.CreatePlugin('Overlays V:'..NeP.Overlays.Version, function() NeP.Interface.ShowGUI('NePOverlays') end)
 
 local Round = NeP.Core.Round
 local UnitAttackRange = NeP.Core.UnitAttackRange
