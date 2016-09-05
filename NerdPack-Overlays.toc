@@ -4,4 +4,4 @@
 ## Interface: 70000
 ## Author: MrTheSoulz
 
-Overlays.lua
+files.xml
