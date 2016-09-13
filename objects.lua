@@ -10,8 +10,8 @@ LibDraw.Sync(function()
 		LibDraw.SetColorRaw(1, 1, 1, Alpha)
 		LibDraw.SetWidth(2)
 
-		for i=1, #NeP.OM.GameObjects do
-			local Obj = NeP.OM.GameObjects[i]
+		for i=1, #NeP.OM['GameObjects'] do
+			local Obj = NeP.OM['GameObjects'][i]
 			if UnitGUID(Obj.key) and ObjectExists(Obj.key) then
 				
 				local oX, oY, oZ = ObjectPosition(Obj.key)

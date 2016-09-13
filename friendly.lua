@@ -7,8 +7,8 @@ LibDraw.Sync(function()
 		local pX, pY, pZ = ObjectPosition('player')
 		LibDraw.SetColorRaw(1, 1, 1, Alpha)
 		LibDraw.SetWidth(2)
-		for i=1,#NeP.OM.unitFriend do
-			local Obj = NeP.OM.unitFriend[i]
+		for i=1,#NeP.OM['unitFriend'] do
+			local Obj = NeP.OM['unitFriend'][i]
 			if ObjectExists(Obj.key) then
 
 				-- All Targets
