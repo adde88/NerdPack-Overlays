@@ -13,7 +13,6 @@ end
 NeP.Interface.CreatePlugin('Overlays V:'..NeP.Overlays.Version, function() NeP.Interface.ShowGUI('NePOverlays') end)
 
 local Round = NeP.Core.Round
-local UnitAttackRange = NeP.Core.UnitAttackRange
 local F = function(key) return NeP.Interface.fetchKey('NePOverlays', key, false) end
 local addonColor = '|cff'..NeP.Interface.addonColor
 local Round = NeP.Core.Round
