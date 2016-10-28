@@ -90,13 +90,13 @@ end
 -- player
 LibDraw.Sync(function()
 		-- Melee range
-		if F('p_MELEE') then
-			local range = UnitCombatReach('player') + 1.5
+		if F('p_MELEE') and UnitExists('target') then
+			local range = UnitCombatReach('player') + UnitCombatReach('target') + 1.5
 			Overlays:Circle('player', range)
 		end
 		-- Melee range
-		if F('p_RANGED') then
-			local range = UnitCombatReach('player') + 40
+		if F('p_RANGED' and UnitExists('target')) then
+			local range = UnitCombatReach('player') + UnitCombatReach('target') + 40
 			Overlays:Circle('player', range)
 		end
 		-- Targets
@@ -105,16 +105,17 @@ LibDraw.Sync(function()
 		end
 end)
 
--- Enemies
+-- target
 LibDraw.Sync(function()
+		if not UnitExists('target') then return end
 		-- Melee range
 		if F('t_MELEE') then
-			local range = UnitCombatReach('target') + 1.5
+			local range = UnitCombatReach('player') + UnitCombatReach('target') + 1.5
 			Overlays:Circle('target', range)
 		end
 		-- Melee range
 		if F('t_RANGED') then
-			local range = UnitCombatReach('target') + 40
+			local range = UnitCombatReach('player') + UnitCombatReach('target') + 40
 			Overlays:Circle('target', range)
 		end
 		-- Targets
@@ -144,16 +145,6 @@ LibDraw.Sync(function()
 			if F('e_TTD') then
 				local ttd = NeP.DSL:Get('ttd')(Obj.key)
 				Overlays:SetText(Obj.key, ttd)
-			end
-			-- Melee range
-			if F('e_MELEE') then
-				local range = UnitCombatReach(Obj.key) + 1.5
-				Overlays:Circle(Obj.key, range)
-			end
-			-- Melee range
-			if F('e_RANGED') then
-				local range = UnitCombatReach(Obj.key) + 40
-				Overlays:Circle(Obj.key, range)
 			end
 			-- All Targets
 			if F('e_TLINES') then
