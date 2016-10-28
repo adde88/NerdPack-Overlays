@@ -1,4 +1,5 @@
-NeP.Overlays.ManaShards = {
+local name, Overlays = ...
+Overlays.ManaShards = {
 	texture = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
 		--[[ //// Legion //// ]]
@@ -7,8 +8,8 @@ NeP.Overlays.ManaShards = {
 	}
 }
 
-NeP.Overlays.Fish = {
-	texture = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp', -- FIXME: needs a new icon
+Overlays.Fish = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
 		--[[ //// WOD //// ]]
 		[229072] = '???',
@@ -25,7 +26,7 @@ NeP.Overlays.Fish = {
 	}
 }
 
-NeP.Overlays.Textures = {
+Overlays.Textures = {
 	['HORDE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\horde.blp',
 	['ALLIANCE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\alliance.blp',
 	['BOSS'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\boss.blp',

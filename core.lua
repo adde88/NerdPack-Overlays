@@ -1,66 +1,44 @@
-NeP.Overlays = {
-	Version = 2.0
-}
+local name, Overlays = ...
+Overlays.Version     = 2.0
+local NeP            = NeP
+local F              = function(key) return NeP.Interface:Fetch(name, key, false) end
+local LibDraw        = LibStub('LibDraw-1.0')
+local ObjectPosition = ObjectPosition
+local UnitName       = UnitName
+local UnitGUID       = UnitGUID
 
--- Core version check
-if NeP.Info.Version >= 70.8 then
-	NeP.Core.Print('Loaded  Overlays V:'..NeP.Overlays.Version)
-else
-	NeP.Core.Print('Failed to load Overlays module.\nYour Core is outdated.')
-	return
-end
-
-NeP.Interface.CreatePlugin('Overlays V:'..NeP.Overlays.Version, function() NeP.Interface.ShowGUI('NePOverlays') end)
-
-local Round = NeP.Core.Round
-local F = function(key) return NeP.Interface.fetchKey('NePOverlays', key, false) end
-local addonColor = '|cff'..NeP.Interface.addonColor
-local Round = NeP.Core.Round
-local LibDraw = LibStub('LibDraw-1.0')
-
+-- The refresh speed
 LibDraw.Enable(0.01)
 
 local config = {
-	key = 'NePOverlays',
-	profiles = true,
-	title = '|T'..NeP.Interface.Logo..':10:10|t'..' '..NeP.Info.Name,
-	subtitle = 'Overlays Settings',
-	color = NeP.Interface.addonColor,
+	key = name,
+	title = name,
+	subtitle = 'Settings',
 	width = 250,
 	height = 500,
 	config = {
-		{ type = 'header', text = 'Tracker:', size = 25, align = 'Center' },
-			{ type = 'checkbox', text = 'Find Mana Shards', key = 'MANA_SHARDS', default = false },
-			{ type = 'checkbox', text = 'Find Fishing Pools', key = 'FISHING_POOLS', default = false },
-			{ type = 'checkbox', text = 'Find Boss\'s', key = 'Draw_BOSS', default = false },
-			{ type = 'checkbox', text = 'Find Rares', key = 'Draw_RARE', default = false },
+		-- Enemies
+		{ type = 'header', text = 'Enemies' },
+		{ type = 'checkspin', text = 'Enable', key = 'e_MASTER', default_check = false, default_spin = 50 },
+		{ type = 'checkbox', text = 'Name', key = 'e_NAME', default = false },
+		{ type = 'checkbox', text = 'Distance', key = 'e_DIS', default = false },
+		{ type = 'checkbox', text = 'TTD', key = 'e_TTD', default = false },
+		{ type = 'spacer' },{ type = 'ruler' },
 
-		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = 'Player:', size = 25, align = 'Center' },
-			{ type = 'checkbox', text = 'Draw target line', key = 'P_TargetLine', default = false },
-
-		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = 'Enemies:', size = 25, align = 'Center' },
-			{ type = 'checkbox', text = 'Draw textures', key = 'Draw_ENEMIE_PLAYERS', default = false },
-			{ type = 'checkbox', text = 'Draw target line', key = 'E_TARGET', default = false },
-
-		{ type = 'spacer' },{ type = 'rule' },
-		{ type = 'header', text = 'Frendly:', size = 25, align = 'Center' },
-			{ type = 'checkbox', text = 'Draw textures', key = 'Draw_FRIENDLY_PLAYERS', default = false },
-			{ type = 'checkbox', text = 'Draw target line', key = 'F_TARGET', default = false },
-		
+		-- Friendly
+		{ type = 'header', text = 'Friendly' },
+		{ type = 'checkspin', text = 'Enable', key = 'f_MASTER', default_check = false, default_spin = 50 },
+		{ type = 'checkbox', text = 'Name', key = 'f_NAME', default = false },
+		{ type = 'checkbox', text = 'Distance', key = 'f_DIS', default = false },
+		{ type = 'checkbox', text = 'TTD', key = 'f_TTD', default = false },
+		{ type = 'spacer' },{ type = 'ruler' }
 	}
 }
 
-NeP.Interface.buildGUI(config)
+Overlays.GUI = NeP.Interface:BuildGUI(config)
+NeP.Interface:Add(name..' V:'..Overlays.Version, function() Overlays.GUI:Show() end)
 
-local basicMarker = {
-	{ 0.1, 0, 0, -0.1, 0, 0},
-	{ 0, 0.1, 0, 0, -0.1, 0},
-	{ 0, 0, -0.1, 0, 0, 0.1}
-}
-
-local Classifications = {
+Overlays.Classifications = {
 	['minus'] 		= 1,
 	['normal'] 		= 2,
 	['elite' ]		= 3,
@@ -69,21 +47,63 @@ local Classifications = {
 	['worldboss' ]	= 6
 }
 
-function NeP.Overlays.SetTexture(Obj, TextureLoc)
+local Texts = {}
+function Overlays:SetText(Obj, text)
 	local oX, oY, oZ = ObjectPosition(Obj)
-	local distance = Round(NeP.Engine.Distance('player', Obj))
-	if distance < 50 then
-		-- BIG
-		local tempT = { texture = TextureLoc, width = 58, height = 58, scale = 1 }
-		LibDraw.Texture(tempT, oX, oY, oZ + 6, 100)
-	elseif distance > 200 then
-		-- SMALL
-		local tempT = { texture = TextureLoc, width = 18, height = 18, scale = 1 }
-		LibDraw.Texture(tempT, oX, oY, oZ + 6, 100)
-	else
-		-- NORMAL
-		local tempT = { texture = TextureLoc, width = 64, height = 64 }
-		LibDraw.Texture(tempT, oX, oY, oZ + 6, 100)
-	end
-	LibDraw.Text(UnitName(Obj)..'|r\n'..distance..' yards', 'SystemFont_Tiny', oX, oY, oZ + 3)
+	-- This tracks how many texts a unit has for offsers
+	local GUID = UnitGUID(Obj)
+	Texts[GUID] = Texts[GUID]..'\n|cffFFFFFF'..text
+	LibDraw.Text(Texts[GUID], 'SystemFont_Tiny', oX, oY, oZ + 3)
 end
+
+-- Enemies
+LibDraw.Sync(function()
+	if not F('e_MASTER_check') then return end
+	for GUID, Obj in pairs(NeP.OM:Get('Enemy')) do
+		Texts[GUID] = ''
+		if Obj.distance <= F('e_MASTER_spin') then
+			-- Distance
+			if F('e_NAME') then
+				local Name = UnitName(Obj.key)
+				local Color = '|cff'..NeP.Core:ClassColor(Obj.key)
+				Overlays:SetText(Obj.key, Color..Name)
+			end
+			-- Distance
+			if F('e_DIS') then
+				local distance = NeP.Core:Round(Obj.distance)
+				Overlays:SetText(Obj.key, distance..' yards')
+			end
+			-- TTD
+			if F('e_TTD') then
+				local ttd = NeP.DSL:Get('ttd')(Obj.key)
+				Overlays:SetText(Obj.key, ttd)
+			end
+		end
+	end
+end)
+
+-- Friendly
+LibDraw.Sync(function()
+	if not F('f_MASTER_check') then return end
+	for GUID, Obj in pairs(NeP.OM:Get('Friendly')) do
+		Texts[GUID] = ''
+		if Obj.distance <= F('f_MASTER_spin') then
+			-- Distance
+			if F('f_NAME') then
+				local Name = UnitName(Obj.key)
+				local Color = '|cff'..NeP.Core:ClassColor(Obj.key)
+				Overlays:SetText(Obj.key, Color..Name)
+			end
+			-- Distance
+			if F('f_DIS') then
+				local distance = NeP.Core:Round(Obj.distance)
+				Overlays:SetText(Obj.key, distance..' yards')
+			end
+			-- TTD
+			if F('f_TTD') then
+				local ttd = NeP.DSL:Get('ttd')(Obj.key)
+				Overlays:SetText(Obj.key, ttd)
+			end
+		end
+	end
+end)

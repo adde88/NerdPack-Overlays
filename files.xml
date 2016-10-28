@@ -3,8 +3,4 @@
 	<!-- System -->
 	<Script file="core.lua" />
 	<Script file="ids.lua" />
-	<Script file="player.lua" />
-	<Script file="enemie.lua" />
-	<Script file="friendly.lua" />
-	<Script file="objects.lua" />
 </Ui>
