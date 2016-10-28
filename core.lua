@@ -7,6 +7,8 @@ local ObjectPosition  = ObjectPosition
 local UnitName        = UnitName
 local UnitGUID        = UnitGUID
 local UnitCombatReach = UnitCombatReach
+local UnitTarget      = UnitTarget
+local UnitExists      = UnitExists
 
 -- The refresh speed
 LibDraw.Enable(0.01)
@@ -23,12 +25,14 @@ local config = {
 		{ type = 'header', text = 'Player' },
 		{ type = 'checkbox', text = 'Melee', key = 'p_MELEE', default = false },
 		{ type = 'checkbox', text = 'Ranged', key = 'p_RANGED', default = false },
+		{ type = 'checkbox', text = 'Target lines', key = 'p_TLINES', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- target
 		{ type = 'header', text = 'Target' },
 		{ type = 'checkbox', text = 'Melee', key = 't_MELEE', default = false },
 		{ type = 'checkbox', text = 'Ranged', key = 't_RANGED', default = false },
+		{ type = 'checkbox', text = 'Target lines', key = 't_TLINES', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Enemies
@@ -37,6 +41,7 @@ local config = {
 		{ type = 'checkbox', text = 'Name', key = 'e_NAME', default = false },
 		{ type = 'checkbox', text = 'Distance', key = 'e_DIS', default = false },
 		{ type = 'checkbox', text = 'TTD', key = 'e_TTD', default = false },
+		{ type = 'checkbox', text = 'Target lines', key = 'e_TLINES', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Friendly
@@ -45,6 +50,7 @@ local config = {
 		{ type = 'checkbox', text = 'Name', key = 'f_NAME', default = false },
 		{ type = 'checkbox', text = 'Distance', key = 'f_DIS', default = false },
 		{ type = 'checkbox', text = 'TTD', key = 'f_TTD', default = false },
+		{ type = 'checkbox', text = 'Target lines', key = 'f_TLINES', default = false },
 		{ type = 'spacer' },{ type = 'ruler' }
 	}
 }
@@ -75,26 +81,45 @@ function Overlays:Circle(Obj, radius)
 	LibDraw.Circle(oX, oY, oZ, radius)
 end
 
--- Enemies
+function Overlays:DrawLine(a, b)
+	local oX, oY, oZ = ObjectPosition(a)
+	local tX, tY, tZ = ObjectPosition(b)
+	LibDraw.Line(oX, oY, oZ, tX, tY, tZ)
+end
+
+-- player
 LibDraw.Sync(function()
 		-- Melee range
 		if F('p_MELEE') then
 			local range = UnitCombatReach('player') + 1.5
 			Overlays:Circle('player', range)
 		end
-		if F('t_MELEE') then
-			local range = UnitCombatReach('target') + 1.5
-			Overlays:Circle('target', range)
-		end
 		-- Melee range
 		if F('p_RANGED') then
 			local range = UnitCombatReach('player') + 40
 			Overlays:Circle('player', range)
 		end
+		-- Targets
+		if F('p_TLINES') and UnitExists('target') then
+				Overlays:DrawLine('player', 'target')
+		end
+end)
+
+-- Enemies
+LibDraw.Sync(function()
+		-- Melee range
+		if F('t_MELEE') then
+			local range = UnitCombatReach('target') + 1.5
+			Overlays:Circle('target', range)
+		end
 		-- Melee range
 		if F('t_RANGED') then
 			local range = UnitCombatReach('target') + 40
 			Overlays:Circle('target', range)
+		end
+		-- Targets
+		if F('t_TLINES') and UnitExists('targettarget') then
+				Overlays:DrawLine('target', 'targettarget')
 		end
 end)
 
@@ -130,6 +155,13 @@ LibDraw.Sync(function()
 				local range = UnitCombatReach(Obj.key) + 40
 				Overlays:Circle(Obj.key, range)
 			end
+			-- All Targets
+			if F('e_TLINES') then
+				local ObjTarget = UnitTarget(Obj.key)
+				if ObjTarget then
+					Overlays:DrawLine(Obj.key, ObjTarget)
+				end
+			end
 		end
 	end
 end)
@@ -155,6 +187,13 @@ LibDraw.Sync(function()
 			if F('f_TTD') then
 				local ttd = NeP.DSL:Get('ttd')(Obj.key)
 				Overlays:SetText(Obj.key, ttd)
+			end
+			-- All Targets
+			if F('f_TLINES') then
+				local ObjTarget = UnitTarget(Obj.key)
+				if ObjTarget then
+					Overlays:DrawLine(Obj.key, ObjTarget)
+				end
 			end
 		end
 	end
