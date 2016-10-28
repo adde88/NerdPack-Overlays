@@ -1,7 +1,7 @@
 local name, Overlays  = ...
 Overlays.Version      = 2.0
 local NeP             = NeP
-local F               = function(key) return NeP.Interface:Fetch(name, key, false) end
+local F               = function(key, default) return NeP.Interface:Fetch(name, key, default or false) end
 local LibDraw         = LibStub('LibDraw-1.0')
 local ObjectPosition  = ObjectPosition
 local UnitName        = UnitName
@@ -9,17 +9,22 @@ local UnitGUID        = UnitGUID
 local UnitCombatReach = UnitCombatReach
 local UnitTarget      = UnitTarget
 local UnitExists      = UnitExists
-
--- The refresh speed
-LibDraw.Enable(0.01)
+local ReloadUI        = ReloadUI
 
 local config = {
 	key = name,
 	title = name,
 	subtitle = 'Settings',
-	width = 250,
+	width = 200,
 	height = 500,
 	config = {
+
+		-- General
+		{ type = 'header', text = 'General' },
+		{ type = 'input', text = 'Refresh rate', key = 'refresh', default = 0.01 },
+		{ type = 'spacer' },
+		{ type = 'button', text = 'Apply', align = 'TOP', width = 150,  callback = function() ReloadUI() end },
+		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Player
 		{ type = 'header', text = 'Player' },
@@ -188,4 +193,11 @@ LibDraw.Sync(function()
 			end
 		end
 	end
+end)
+
+NeP.Listener:Add(name, "PLAYER_LOGIN", function()
+	-- The refresh speed
+	local input = F('refresh', 0.01)
+	print(tonumber(input))
+	LibDraw.Enable(tonumber(input))
 end)
