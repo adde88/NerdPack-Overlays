@@ -1,11 +1,12 @@
-local name, Overlays = ...
-Overlays.Version     = 2.0
-local NeP            = NeP
-local F              = function(key) return NeP.Interface:Fetch(name, key, false) end
-local LibDraw        = LibStub('LibDraw-1.0')
-local ObjectPosition = ObjectPosition
-local UnitName       = UnitName
-local UnitGUID       = UnitGUID
+local name, Overlays  = ...
+Overlays.Version      = 2.0
+local NeP             = NeP
+local F               = function(key) return NeP.Interface:Fetch(name, key, false) end
+local LibDraw         = LibStub('LibDraw-1.0')
+local ObjectPosition  = ObjectPosition
+local UnitName        = UnitName
+local UnitGUID        = UnitGUID
+local UnitCombatReach = UnitCombatReach
 
 -- The refresh speed
 LibDraw.Enable(0.01)
@@ -17,6 +18,19 @@ local config = {
 	width = 250,
 	height = 500,
 	config = {
+
+		-- Player
+		{ type = 'header', text = 'Player' },
+		{ type = 'checkbox', text = 'Melee', key = 'p_MELEE', default = false },
+		{ type = 'checkbox', text = 'Ranged', key = 'p_RANGED', default = false },
+		{ type = 'spacer' },{ type = 'ruler' },
+
+		-- target
+		{ type = 'header', text = 'Target' },
+		{ type = 'checkbox', text = 'Melee', key = 't_MELEE', default = false },
+		{ type = 'checkbox', text = 'Ranged', key = 't_RANGED', default = false },
+		{ type = 'spacer' },{ type = 'ruler' },
+
 		-- Enemies
 		{ type = 'header', text = 'Enemies' },
 		{ type = 'checkspin', text = 'Enable', key = 'e_MASTER', default_check = false, default_spin = 50 },
@@ -56,6 +70,34 @@ function Overlays:SetText(Obj, text)
 	LibDraw.Text(Texts[GUID], 'SystemFont_Tiny', oX, oY, oZ + 3)
 end
 
+function Overlays:Circle(Obj, radius)
+	local oX, oY, oZ = ObjectPosition(Obj)
+	LibDraw.Circle(oX, oY, oZ, radius)
+end
+
+-- Enemies
+LibDraw.Sync(function()
+		-- Melee range
+		if F('p_MELEE') then
+			local range = UnitCombatReach('player') + 1.5
+			Overlays:Circle('player', range)
+		end
+		if F('t_MELEE') then
+			local range = UnitCombatReach('target') + 1.5
+			Overlays:Circle('target', range)
+		end
+		-- Melee range
+		if F('p_RANGED') then
+			local range = UnitCombatReach('player') + 40
+			Overlays:Circle('player', range)
+		end
+		-- Melee range
+		if F('t_RANGED') then
+			local range = UnitCombatReach('target') + 40
+			Overlays:Circle('target', range)
+		end
+end)
+
 -- Enemies
 LibDraw.Sync(function()
 	if not F('e_MASTER_check') then return end
@@ -77,6 +119,16 @@ LibDraw.Sync(function()
 			if F('e_TTD') then
 				local ttd = NeP.DSL:Get('ttd')(Obj.key)
 				Overlays:SetText(Obj.key, ttd)
+			end
+			-- Melee range
+			if F('e_MELEE') then
+				local range = UnitCombatReach(Obj.key) + 1.5
+				Overlays:Circle(Obj.key, range)
+			end
+			-- Melee range
+			if F('e_RANGED') then
+				local range = UnitCombatReach(Obj.key) + 40
+				Overlays:Circle(Obj.key, range)
 			end
 		end
 	end
