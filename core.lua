@@ -60,8 +60,10 @@ local config = {
 	}
 }
 
+-- Create the GUI and add it to NeP
 Overlays.GUI = NeP.Interface:BuildGUI(config)
 NeP.Interface:Add(name..' V:'..Overlays.Version, function() Overlays.GUI:Show() end)
+Overlays.GUI:Hide()
 
 Overlays.Classifications = {
 	['minus'] 		= 1,
