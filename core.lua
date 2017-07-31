@@ -42,28 +42,37 @@ local config = {
 
 		-- Enemies
 		{ type = 'header', text = 'Enemies' },
-		{ type = 'checkspin', text = 'Enable', key = 'e_MASTER', default_check = false, default_spin = 50 },
+		{ type = 'checkspin', text = 'Enable', key = 'e_MASTER', check = false, spin = 50 },
 		{ type = 'checkbox', text = 'Name', key = 'e_NAME', default = false },
 		{ type = 'checkbox', text = 'Distance', key = 'e_DIS', default = false },
 		{ type = 'checkbox', text = 'TTD', key = 'e_TTD', default = false },
 		{ type = 'checkbox', text = 'Target lines', key = 'e_TLINES', default = false },
+		{ type = 'checkbox', text = 'IDs', key = 'e_IDs', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Friendly
 		{ type = 'header', text = 'Friendly' },
-		{ type = 'checkspin', text = 'Enable', key = 'f_MASTER', default_check = false, default_spin = 50 },
+		{ type = 'checkspin', text = 'Enable', key = 'f_MASTER', check = false, spin = 50 },
 		{ type = 'checkbox', text = 'Name', key = 'f_NAME', default = false },
 		{ type = 'checkbox', text = 'Distance', key = 'f_DIS', default = false },
 		{ type = 'checkbox', text = 'TTD', key = 'f_TTD', default = false },
 		{ type = 'checkbox', text = 'Target lines', key = 'f_TLINES', default = false },
-		{ type = 'spacer' },{ type = 'ruler' }
+		{ type = 'checkbox', text = 'IDs', key = 'f_IDs', default = false },
+		{ type = 'spacer' },{ type = 'ruler' },
+
+		-- Objects
+		{ type = 'header', text = 'Objects' },
+		{ type = 'checkspin', text = 'Enable', key = 'o_MASTER', check = false, spin = 50 },
+		{ type = 'checkbox', text = 'Name', key = 'o_NAME', default = false },
+		{ type = 'checkbox', text = 'Distance', key = 'o_DIS', default = false },
+		{ type = 'checkbox', text = 'IDs', key = 'o_IDs', default = false },
 	}
 }
 
 -- Create the GUI and add it to NeP
 Overlays.GUI = NeP.Interface:BuildGUI(config)
-NeP.Interface:Add(name..' V:'..Overlays.Version, function() Overlays.GUI:Show() end)
-Overlays.GUI:Hide()
+NeP.Interface:Add(name..' V:'..Overlays.Version, function() Overlays.GUI.parent:Show() end)
+Overlays.GUI.parent:Hide()
 
 Overlays.Classifications = {
 	['minus'] 		= 1,
@@ -160,6 +169,10 @@ LibDraw.Sync(function()
 					Overlays:DrawLine(Obj.key, ObjTarget)
 				end
 			end
+			-- IDs
+			if F('e_IDs') then
+				Overlays:SetText(Obj.key, Obj.id)
+			end
 		end
 	end
 end)
@@ -193,6 +206,35 @@ LibDraw.Sync(function()
 					Overlays:DrawLine(Obj.key, ObjTarget)
 				end
 			end
+			-- IDs
+			if F('f_IDs') then
+				Overlays:SetText(Obj.key, Obj.id)
+			end
+		end
+	end
+end)
+
+-- Objects
+LibDraw.Sync(function()
+	if not F('o_MASTER_check') then return end
+	for GUID, Obj in pairs(NeP.OM:Get('Objects')) do
+		Texts[GUID] = ''
+		if Obj.distance <= F('o_MASTER_spin') then
+			-- Distance
+			if F('o_NAME') then
+				local Name = UnitName(Obj.key)
+				local Color = '|cffFFFFFF'
+				Overlays:SetText(Obj.key, Color..Name)
+			end
+			-- Distance
+			if F('o_DIS') then
+				local distance = NeP.Core:Round(Obj.distance)
+				Overlays:SetText(Obj.key, distance..' yards')
+			end
+			-- IDs
+			if F('o_IDs') then
+				Overlays:SetText(Obj.key, Obj.id)
+			end
 		end
 	end
 end)
@@ -200,6 +242,5 @@ end)
 NeP.Listener:Add(name, "PLAYER_LOGIN", function()
 	-- The refresh speed
 	local input = F('refresh', 0.01)
-	print(tonumber(input))
 	LibDraw.Enable(tonumber(input))
 end)
