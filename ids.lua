@@ -1,4 +1,12 @@
 local name, Overlays = ...
+
+Overlays.MiningOres = {
+	texture = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp', -- FIXME: needs a new icon
+	ids = {
+		--[[ //// Legion //// ]]
+	}
+}
+
 Overlays.ManaShards = {
 	texture = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
@@ -8,7 +16,7 @@ Overlays.ManaShards = {
 	}
 }
 
-Overlays.Fish = {
+Overlays.FishPoles = {
 	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
 		--[[ //// WOD //// ]]
