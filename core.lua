@@ -102,16 +102,20 @@ end
 
 
 function Overlays.SetTexture(_, Obj, texture, distance)
+	local offset = 4
 	local tempT = { texture = texture, width = 64, height = 64, scale = 1 }
-	if distance < 50 then
-		tempT.width = 58
-		tempT.height = 58
-	elseif distance > 200 then
-		tempT.width = 18
-		tempT.height = 18
+	if distance > 30 then
+		offset = 4
+		tempT.width = 32
+		tempT.height = 32
+	end
+	if distance > 60 then
+		offset = 3
+		tempT.width = 16
+		tempT.height = 16
 	end
 	local oX, oY, oZ = ObjectPosition(Obj)
-	LibDraw.Texture(tempT, oX, oY, oZ + 6, 100)
+	LibDraw.Texture(tempT, oX, oY, oZ + offset, 100)
 end
 
 function Overlays.Circle(_, Obj, radius)
