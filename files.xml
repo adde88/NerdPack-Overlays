@@ -2,5 +2,12 @@
 ..\FrameXML\UI.xsd">
 	<!-- System -->
 	<Script file="core.lua" />
+	<Script file="gui.lua" />
 	<Script file="ids.lua" />
+	<Script file="player.lua" />
+	<Script file="target.lua" />
+	<Script file="enemies.lua" />
+	<Script file="friendly.lua" />
+	<Script file="objects.lua" />
+	<Script file="tracker.lua" />
 </Ui>
