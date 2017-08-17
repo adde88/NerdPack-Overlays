@@ -1,7 +1,7 @@
 local name, Overlays = ...
 
 Overlays.MiningOres = {
-	texture = 'Interface\\Icons\\inv_ore_copper_01', -- FIXME: needs a new icon
+	texture = 'Interface\\Icons\\inv_ore_copper_01',
 	ids = {
 		--	Legion Ores
 		--		Leystones
@@ -63,7 +63,7 @@ Overlays.MiningOres = {
 }
 
 Overlays.ManaShards = {
-	texture = 'Interface\\Icons\\inv_leycrystalsmall', -- FIXME: needs a new icon
+	texture = 'Interface\\Icons\\inv_leycrystalsmall',
 	ids = {
 		--[[ //// Legion //// ]]
 		[260249] = 'Ancient Mana Shard',
@@ -100,10 +100,21 @@ Overlays.FishPoles = {
 	}
 }
 
+Overlays.EphemeralCrystals = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
+	ids = {
+		[251183] = 'EphemeralCrystals',
+		[251185] = 'EphemeralCrystals',
+		[251186] = 'EphemeralCrystals',
+		[251187] = 'EphemeralCrystals',
+		[251168] = 'EphemeralCrystals',
+	}
+}
+
 Overlays.Textures = {
-	['HORDE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\horde.blp',
-	['ALLIANCE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\alliance.blp',
-	['BOSS'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\boss.blp',
-	['MOB'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp',
-	['RARE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp'  -- FIXME: needs a new icon
+	['HORDE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\horde.blp', -- FIXME: needs a new icon
+	['ALLIANCE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\alliance.blp', -- FIXME: needs a new icon
+	['BOSS'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\boss.blp', -- FIXME: needs a new icon
+	['MOB'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp', -- FIXME: needs a new icon
+	['RARE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\mob.blp' -- FIXME: needs a new icon
 }

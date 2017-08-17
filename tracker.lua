@@ -23,4 +23,11 @@ function gbl:TrackerSync(Obj)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end
+	-- Ephemeral Crystal
+	if self:F('tr_EphemeralCrystals')
+  and self.EphemeralCrystals.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.EphemeralCrystals.texture, distance)
+		self:SetText(Obj.key, Obj.name)
+		self:SetText(Obj.key, distance..' yards')
+	end
 end

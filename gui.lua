@@ -57,6 +57,7 @@ local config = {
 		{ type = 'checkbox', text = 'Track Mana Shards', key = 'tr_ManaShards', default = false },
 		{ type = 'checkbox', text = 'Track Fish Pools', key = 'tr_FishPoles', default = false },
 		{ type = 'checkbox', text = 'Track Mining Ores', key = 'tr_MiningOres', default = false },
+		{ type = 'checkbox', text = 'Track Ephemeral Crystals', key = 'tr_EphemeralCrystals', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Objects
