@@ -100,7 +100,8 @@ Overlays.FishPoles = {
 		[229067] = 'Jawless Skulker School',
 		[236756] = 'Oily Abyssal Gulper School',
 		[237295] = 'Oily Sea Scorpion School',
-		[229071] = 'Sea Scorpion School'
+		[229071] = 'Sea Scorpion School',
+		[246492] = 'Runescale Koi Scool'
 	}
 }
 
