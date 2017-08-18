@@ -32,11 +32,11 @@ Overlays.MiningOres = {
 		[247915] = 'Striking Leystone Deposit',
 		[247989] = 'Wild Leystone Seam',
 		[247912] = 'Exquisite Leystone Deposit',
-		[247940] = '	Hardened Leystone Outcropping',
+		[247940] = 'Hardened Leystone Outcropping',
 		[247913] = 'Magnificent Leystone Deposit',
 		[247939] = 'Radiant Leystone Outcropping',
 		[247988] = 'Raw Leystone Seam',
-		[247914] = '	Superior Leystone Deposit',
+		[247914] = 'Superior Leystone Deposit',
 		--		Others
 		[247075] = 'Secreted Wax Glob',
 		[251181] = 'Azure Ore',
@@ -81,7 +81,8 @@ Overlays.ManaShards = {
 		[252446] = 'Shimmering Ancient Mana Cluster',
 		[252423] = 'Shimmering Ancient Mana Cluster',
 		[251416] = 'Ancient Mana Chunk',
-		[245126] = 'Crystallized Ancient Mana'
+		[245126] = 'Crystallized Ancient Mana',
+		[260498] = 'Leypetal Blossom'
 	}
 }
 
