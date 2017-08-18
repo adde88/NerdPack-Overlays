@@ -33,4 +33,11 @@ function gbl:TrackerSync(Obj)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end
+	-- Tresures
+	if self:F('tr_Tresures')
+  and self.Tresures.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.Tresures.texture, distance)
+		self:SetText(Obj.key, Obj.name)
+		self:SetText(Obj.key, distance..' yards')
+	end
 end

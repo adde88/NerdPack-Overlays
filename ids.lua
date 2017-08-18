@@ -116,6 +116,14 @@ Overlays.EphemeralCrystals = {
 	}
 }
 
+Overlays.Tresures = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
+	ids = {
+		[251954] = 'Small Tresure Chest',
+		[251743] = 'Glimmering Tresure Chest',
+	}
+}
+
 Overlays.Textures = {
 	['HORDE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\horde.blp', -- FIXME: needs a new icon
 	['ALLIANCE'] = 'Interface\\AddOns\\NerdPack-Overlays\\media\\alliance.blp', -- FIXME: needs a new icon
