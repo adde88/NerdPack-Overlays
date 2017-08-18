@@ -1,3 +1,6 @@
+-- Dont even load if not advanced
+if not ObjectPosition then return end
+
 local n_name, gbl = ...
 local NeP = NeP
 local LibDraw = LibStub('LibDraw-1.0')

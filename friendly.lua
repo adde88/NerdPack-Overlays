@@ -1,3 +1,6 @@
+-- Dont even load if not advanced
+if not ObjectPosition then return end
+
 local _, gbl = ...
 local NeP = NeP
 local UnitTarget = UnitTarget
