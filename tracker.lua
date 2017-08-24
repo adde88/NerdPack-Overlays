@@ -1,3 +1,5 @@
+local ObjectPosition = ObjectPosition
+
 -- Dont even load if not advanced
 if not ObjectPosition then return end
 
@@ -33,10 +35,17 @@ function gbl:TrackerSync(Obj)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end
-	-- Tresures
-	if self:F('tr_Tresures')
-  and self.Tresures.ids[Obj.id] then
-		self:SetTexture(Obj.key, self.Tresures.texture, distance)
+	-- Treasures
+	if self:F('tr_Treasures')
+  and self.Treasures.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.Treasures.texture, distance)
+		self:SetText(Obj.key, Obj.name)
+		self:SetText(Obj.key, distance..' yards')
+	end
+	-- Wyrmtongue Chests
+	if self:F('tr_Wyrmtongue')
+  and self.WymrtongueCaches.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.WymrtongueCaches.texture, distance)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end

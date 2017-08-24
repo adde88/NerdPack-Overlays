@@ -61,7 +61,8 @@ local config = {
 		{ type = 'checkbox', text = 'Track Fish Pools', key = 'tr_FishPoles', default = false },
 		{ type = 'checkbox', text = 'Track Mining Ores', key = 'tr_MiningOres', default = false },
 		{ type = 'checkbox', text = 'Track Ephemeral Crystals', key = 'tr_EphemeralCrystals', default = false },
-		{ type = 'checkbox', text = 'Track Tresures', key = 'tr_Tresures', default = false },
+		{ type = 'checkbox', text = 'Track Treasures', key = 'tr_Treasures', default = false },
+		{ type = 'checkbox', text = 'Track Wyrmtongue Chests', key = 'tr_Wyrmtongue', default = false },
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Objects

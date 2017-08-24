@@ -108,19 +108,28 @@ Overlays.FishPoles = {
 Overlays.EphemeralCrystals = {
 	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
-		[251183] = 'EphemeralCrystals',
-		[251185] = 'EphemeralCrystals',
-		[251186] = 'EphemeralCrystals',
-		[251187] = 'EphemeralCrystals',
-		[251168] = 'EphemeralCrystals',
+		[251183] = 'Ephemeral Crystal',
+		[251185] = 'Ephemeral Crystal',
+		[251186] = 'Ephemeral Crystal',
+		[251187] = 'Ephemeral Crystal',
+		[251168] = 'Ephemeral Crystal'
 	}
 }
 
-Overlays.Tresures = {
+Overlays.WymrtongueCaches ={
+	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp', -- FIXME: needs a new icon
+	ids = {
+		[268468] = 'Hidden Wyrmtongue Cache',
+		[271227] = 'Hidden Wyrmtongue Cache'
+	}
+}
+
+Overlays.Treasures = {
 	texture = 'Interface\\AddOns\\'..name..'\\media\\mob.blp', -- FIXME: needs a new icon
 	ids = {
-		[251954] = 'Small Tresure Chest',
-		[251743] = 'Glimmering Tresure Chest',
+		[251954] = 'Small Treasure Chest',
+		[251743] = 'Glimmering Treasure Chest',
+		[268468] = 'Hidden Wyrmtongue Cache'
 	}
 }
 
