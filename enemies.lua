@@ -2,8 +2,6 @@
 if not ObjectPosition then return end
 
 local _, gbl = ...
-local NeP = NeP
-local UnitTarget = UnitTarget
 
 function gbl:EnemiesSync(Obj)
 	-- Distance
