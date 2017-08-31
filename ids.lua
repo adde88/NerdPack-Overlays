@@ -116,11 +116,18 @@ Overlays.EphemeralCrystals = {
 	}
 }
 
-Overlays.WymrtongueCaches ={
-	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp', -- FIXME: needs a new icon
+Overlays.WymrtongueCaches = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp',
 	ids = {
 		[268468] = 'Hidden Wyrmtongue Cache',
 		[271227] = 'Hidden Wyrmtongue Cache'
+	}
+}
+
+Overlays.LegionWarSupplies = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp',
+	ids = {
+		[273524] = 'Legion War Supplies'
 	}
 }
 

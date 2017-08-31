@@ -2,7 +2,6 @@
 if not ObjectPosition then return end
 
 local n_name, gbl = ...
-local NeP = NeP
 
 local config = {
 	key = n_name,
@@ -62,7 +61,9 @@ local config = {
 		{ type = 'checkbox', text = 'Track Mining Ores', key = 'tr_MiningOres', default = false },
 		{ type = 'checkbox', text = 'Track Ephemeral Crystals', key = 'tr_EphemeralCrystals', default = false },
 		{ type = 'checkbox', text = 'Track Treasures', key = 'tr_Treasures', default = false },
-		{ type = 'checkbox', text = 'Track Wyrmtongue Chests', key = 'tr_Wyrmtongue', default = false },
+		{ type = 'checkbox', text = 'Track Wyrmtongue Caches', key = 'tr_Wyrmtongue', default = false },
+		{ type = 'checkbox', text = 'Track Legion War Supplies', key = 'tr_WarSuppplies', default = false },
+
 		{ type = 'spacer' },{ type = 'ruler' },
 
 		-- Objects

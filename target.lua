@@ -13,7 +13,7 @@ function gbl:TargetSync()
 		self:Circle('target', self:CombatReach('player', 'target') + 40)
 	end
 	-- Targets
-	if self:F('t_TLINES') and self.ObjectExists('targettarget') then
+	if self:F('t_TLINES') and ObjectIsVisible('targettarget') then
 			self:DrawLine('target', 'targettarget')
 	end
 end

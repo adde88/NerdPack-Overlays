@@ -1,5 +1,3 @@
-local ObjectPosition = ObjectPosition
-
 -- Dont even load if not advanced
 if not ObjectPosition then return end
 
@@ -46,6 +44,13 @@ function gbl:TrackerSync(Obj)
 	if self:F('tr_Wyrmtongue')
   and self.WymrtongueCaches.ids[Obj.id] then
 		self:SetTexture(Obj.key, self.WymrtongueCaches.texture, distance)
+		self:SetText(Obj.key, Obj.name)
+		self:SetText(Obj.key, distance..' yards')
+	end
+	-- Legion War Supplies
+	if self:F('tr_WarSuppplies')
+  and self.LegionWarSupplies.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.LegionWarSupplies.texture, distance)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end
