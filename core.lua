@@ -1,8 +1,7 @@
--- Dont even load if not advanced
-if not ObjectPosition then return end
-
 local n_name, gbl = ...
-local LibDraw = LibStub('LibDraw-1.0')
+local _G = _G
+local NeP = _G.NeP
+local LibDraw = _G.LibStub('LibDraw-1.0')
 
 gbl.Version = 2.0
 gbl.Round = NeP.Core.Round
@@ -21,19 +20,19 @@ gbl.Classifications = {
 }
 
 local Texts = {}
-function gbl:SetText(Obj, text)
-	local oX, oY, oZ = ObjectPosition(Obj)
+function gbl.SetText(_, Obj, text)
+	local oX, oY, oZ = _G.ObjectPosition(Obj)
 	-- This tracks how many texts a unit has for offsers
-	local GUID = UnitGUID(Obj)
+	local GUID = _G.UnitGUID(Obj)
 	Texts[GUID] = Texts[GUID]..'\n|cffFFFFFF'..text
 	LibDraw.Text(Texts[GUID], 'SystemFont_Tiny', oX, oY, oZ + 3)
 end
 
-function gbl:CombatReach(a,b)
-	return UnitCombatReach(a) + UnitCombatReach(b)
+function gbl.CombatReach(_, a,b)
+	return _G.UnitCombatReach(a) + _G.UnitCombatReach(b)
 end
 
-function gbl:SetTexture(Obj, texture, distance)
+function gbl.SetTexture(_, Obj, texture, distance)
 	local offset = 4
 	local tempT = { texture = texture, width = 64, height = 64, scale = 1 }
 	if distance > 30 then
@@ -46,27 +45,30 @@ function gbl:SetTexture(Obj, texture, distance)
 		tempT.width = 16
 		tempT.height = 16
 	end
-	local oX, oY, oZ = ObjectPosition(Obj)
+	local oX, oY, oZ = _G.ObjectPosition(Obj)
 	LibDraw.Texture(tempT, oX, oY, oZ + offset, 100)
 end
 
-function gbl:Circle(Obj, radius)
-	local oX, oY, oZ = ObjectPosition(Obj)
+function gbl.Circle(_, Obj, radius)
+	local oX, oY, oZ = _G.ObjectPosition(Obj)
 	LibDraw.Circle(oX, oY, oZ, radius)
 end
 
-function gbl:DrawLine(a, b)
-	local oX, oY, oZ = ObjectPosition(a)
-	local tX, tY, tZ = ObjectPosition(b)
+function gbl.DrawLine(_, a, b)
+	local oX, oY, oZ = _G.ObjectPosition(a)
+	local tX, tY, tZ = _G.ObjectPosition(b)
 	LibDraw.Line(oX, oY, oZ, tX, tY, tZ)
 end
 
 -- Objects
 LibDraw.Sync(function()
 
+	-- Dont even load if not advanced
+	if not _G.ObjectPosition then return end
+
 	gbl:PlayerSync()
 
-	if ObjectIsVisible("target") then
+	if _G.ObjectIsVisible("target") then
 		gbl:TargetSync()
 	end
 
@@ -74,7 +76,7 @@ LibDraw.Sync(function()
 	if gbl:F('f_MASTER') then
 		for GUID, Obj in pairs(NeP.OM:Get('Friendly')) do
 			if Obj.distance <= gbl:F('MASTER_spin')
-			and ObjectIsVisible(Obj.key) then
+			and _G.ObjectIsVisible(Obj.key) then
 				Texts[GUID] = ''
 				Obj.color = NeP.Core:ClassColor(Obj.key)
 				gbl:FriendlySync(Obj)
@@ -86,7 +88,7 @@ LibDraw.Sync(function()
 	if gbl:F('e_MASTER') then
 		for GUID, Obj in pairs(NeP.OM:Get('Enemy')) do
 			if Obj.distance <= gbl:F('MASTER_spin')
-			and ObjectIsVisible(Obj.key) then
+			and _G.ObjectIsVisible(Obj.key) then
 				Texts[GUID] = ''
 				Obj.color = NeP.Core:ClassColor(Obj.key)
 				gbl:EnemiesSync(Obj)
@@ -97,7 +99,7 @@ LibDraw.Sync(function()
 	--Objects
 	for GUID, Obj in pairs(NeP.OM:Get('Objects')) do
 		if Obj.distance <= gbl:F('MASTER_spin')
-		and ObjectIsVisible(Obj.key) then
+		and _G.ObjectIsVisible(Obj.key) then
 			Texts[GUID] = ''
 			if gbl:F('o_MASTER') then
 				gbl:ObjectsSync(Obj)

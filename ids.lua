@@ -1,6 +1,3 @@
--- Dont even load if not advanced
-if not ObjectPosition then return end
-
 local name, Overlays = ...
 
 Overlays.MiningOres = {

@@ -1,7 +1,5 @@
--- Dont even load if not advanced
-if not ObjectPosition then return end
-
 local _, gbl = ...
+local NeP = _G.NeP
 
 function gbl:FriendlySync(Obj)
 	-- Distance
@@ -18,7 +16,7 @@ function gbl:FriendlySync(Obj)
 	end
 	-- All Targets
 	if self:F('f_TLINES') then
-		local ObjTarget = UnitTarget(Obj.key)
+		local ObjTarget = _G.UnitTarget(Obj.key)
 		if ObjTarget then
 			self:DrawLine(Obj.key, ObjTarget)
 		end

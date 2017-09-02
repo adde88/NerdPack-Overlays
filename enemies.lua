@@ -1,6 +1,3 @@
--- Dont even load if not advanced
-if not ObjectPosition then return end
-
 local _, gbl = ...
 
 function gbl:EnemiesSync(Obj)
@@ -15,11 +12,11 @@ function gbl:EnemiesSync(Obj)
 	end
 	-- TTD
 	if self:F('e_TTD') then
-		self:SetText(Obj.key, 'TTD: '..NeP.DSL:Get('ttd')(Obj.key))
+		self:SetText(Obj.key, 'TTD: '.._G.NeP.DSL:Get('ttd')(Obj.key))
 	end
 	-- All Targets
 	if self:F('e_TLINES') then
-		local ObjTarget = UnitTarget(Obj.key)
+		local ObjTarget = _G.UnitTarget(Obj.key)
 		if ObjTarget then
 			self:DrawLine(Obj.key, ObjTarget)
 		end

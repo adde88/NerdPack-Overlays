@@ -1,6 +1,3 @@
--- Dont even load if not advanced
-if not ObjectPosition then return end
-
 local n_name, gbl = ...
 
 local config = {
@@ -76,6 +73,6 @@ local config = {
 }
 
 -- Create the GUI and add it to NeP
-gbl.GUI = NeP.Interface:BuildGUI(config)
-NeP.Interface:Add(n_name..' V:'..gbl.Version, function() gbl.GUI.parent:Show() end)
+gbl.GUI = _G.NeP.Interface:BuildGUI(config)
+_G.NeP.Interface:Add(n_name..' V:'..gbl.Version, function() gbl.GUI.parent:Show() end)
 gbl.GUI.parent:Hide()
