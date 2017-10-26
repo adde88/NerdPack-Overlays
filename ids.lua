@@ -121,6 +121,23 @@ Overlays.WymrtongueCaches = {
 	}
 }
 
+Overlays.ArgusChests = {
+	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp',
+	ids = {
+		[277344] = 'Precious Augari Keepsakes',
+		[277342] = 'Augari Goods',
+		[276227] = 'Augari Secret Stash',
+		[277327] = 'Augari-Runed Chest',
+		[276230] = 'Doomseeker\'s Treasure',
+		[276223] = 'Eredar Treasure Cache',
+		[276490] = 'Krokul Emergency Cache',
+		[277343] = 'Long-Lost Augari Treasure',
+		[276491] = 'Lost Krokul Chest',
+		[277346] = 'Missing Augari Chest',
+		[277340] = 'Secret Augari Chest'
+	}
+}
+
 Overlays.LegionWarSupplies = {
 	texture = 'Interface\\AddOns\\'..name..'\\media\\wyrmtongue.blp',
 	ids = {
