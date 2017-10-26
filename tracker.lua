@@ -44,6 +44,13 @@ function gbl:TrackerSync(Obj)
 		self:SetText(Obj.key, Obj.name)
 		self:SetText(Obj.key, distance..' yards')
 	end
+	-- Argus Chests
+	if self:F('tr_ArgusChests')
+  and self.ArgusChests.ids[Obj.id] then
+		self:SetTexture(Obj.key, self.ArgusChests.texture, distance)
+		self:SetText(Obj.key, Obj.name)
+		self:SetText(Obj.key, distance..' yards')
+	end
 	-- Legion War Supplies
 	if self:F('tr_WarSuppplies')
   and self.LegionWarSupplies.ids[Obj.id] then
