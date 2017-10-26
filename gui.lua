@@ -59,6 +59,7 @@ local config = {
 		{ type = 'checkbox', text = 'Track Ephemeral Crystals', key = 'tr_EphemeralCrystals', default = false },
 		{ type = 'checkbox', text = 'Track Treasures', key = 'tr_Treasures', default = false },
 		{ type = 'checkbox', text = 'Track Wyrmtongue Caches', key = 'tr_Wyrmtongue', default = false },
+		{ type = 'checkbox', text = 'Track Argus Chests', key = 'tr_ArgusChests', default = false },
 		{ type = 'checkbox', text = 'Track Legion War Supplies', key = 'tr_WarSuppplies', default = false },
 
 		{ type = 'spacer' },{ type = 'ruler' },
