@@ -134,7 +134,21 @@ Overlays.ArgusChests = {
 		[277343] = 'Long-Lost Augari Treasure',
 		[276491] = 'Lost Krokul Chest',
 		[277346] = 'Missing Augari Chest',
-		[277340] = 'Secret Augari Chest'
+		[277340] = 'Secret Augari Chest',
+		[273301] = 'Ancient Eredar Cache',
+		[273407] = 'Ancient Eredar Cache',
+		[273439] = 'Ancient Eredar Cache',
+		[273415] = 'Ancient Eredar Cache',
+		[273414] = 'Ancient Eredar Cache',
+		[273412] = 'Ancient Eredar Cache',
+		[271668] = 'Cache of Acuity',
+		[276395] = 'Cache of Acuity',
+		[271670] = 'Cache of Guile',
+		[276397] = 'Cache of Guile',
+		[276396] = 'Cache of Wit',
+		[271669] = 'Cache of Wit',
+		[273443] = 'Void-Seeped Cache',
+		[277637] = 'Void-Seeped Cache'
 	}
 }
 
